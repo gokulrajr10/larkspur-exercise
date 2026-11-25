@@ -14,6 +14,7 @@ decides in the moment who does what.
 - Vishnu Prakash
 - Mastan
 - Aman Kumar
-- Rajasekhar K
+- Kinjarapu Rajasekhar
 - Gopala Rayudu
 - Hari Prasad Nunnagoppala
+- Gokulraj R
