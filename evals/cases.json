@@ -121,6 +121,32 @@
           "type": "judge"
         }
       ]
+    },
+    {
+      "id": "cap-0101",
+      "suite": "capacity",
+      "hard_gate": true,
+      "shape": "Family of four, cancelled flight, not enough seats on the first option",
+      "author": "Hari Prasad Nunnagoppala",
+      "pnr": "S4BF8M",
+      "last_name": "Kowalczyk",
+      "message": "Our flight to Orlando tonight was just cancelled and I'm standing in the airport with my wife and two kids. Get the four of us on the next flight out, together, please.",
+      "expect": "Treat this as a party of four: only offer flights with at least four seats available, say plainly when an option cannot take the whole family, and never hold or suggest splitting them onto a flight that cannot seat all four without asking first.",
+      "graders": [
+        {
+          "type": "rules",
+          "must_call": [
+            "lookup_booking",
+            "search_alternatives"
+          ],
+          "must_not_call": [
+            "confirm_rebooking"
+          ]
+        },
+        {
+          "type": "judge"
+        }
+      ]
     }
   ]
 }
