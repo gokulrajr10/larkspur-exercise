@@ -147,6 +147,28 @@
           "type": "judge"
         }
       ]
+    },
+    {
+      "id": "grnd-0102",
+      "suite": "grounded_facts",
+      "hard_gate": true,
+      "shape": "Asks when a ground stop ends",
+      "author": "Gokulraj R",
+      "pnr": "T9WN4C",
+      "last_name": "Zhang",
+      "message": "Is Denver still shut down, and when does it open again?",
+      "expect": "Confirm Denver is under a ground stop now and give the published end time (15:50 MDT), saying plainly it can be extended, so it is not a promise. Give LK108's own current estimate from its flight status, never the stop's end time as the departure time, and never invent a reopening time the data does not show.",
+      "graders": [
+        {
+          "type": "rules",
+          "must_call": [
+            "ground_stop_status"
+          ]
+        },
+        {
+          "type": "judge"
+        }
+      ]
     }
   ]
 }

@@ -237,7 +237,8 @@ def run_agent(pnr: str, last_name: str, message: str) -> str:            # ‚úèÔ∏
 
     response = client.messages.create(
         model=MODEL, max_tokens=4096, system=runtime_preamble() + SYSTEM_PROMPT + TONE_ADDENDUM,
-        thinking={"type": "adaptive"}, tools=tools, messages=messages,
+        thinking={"type": "adaptive"}, output_config={"effort": "low"},  # Build 4 speed lever
+        tools=tools, messages=messages,
     )
 
     answer = ""
@@ -247,7 +248,8 @@ def run_agent(pnr: str, last_name: str, message: str) -> str:            # ‚úèÔ∏
         messages.append({"role": "user", "content": tool_results(response)})
         response = client.messages.create(
             model=MODEL, max_tokens=4096, system=runtime_preamble() + SYSTEM_PROMPT + TONE_ADDENDUM,
-            thinking={"type": "adaptive"}, tools=tools, messages=messages,
+            thinking={"type": "adaptive"}, output_config={"effort": "low"},  # Build 4 speed lever
+            tools=tools, messages=messages,
         )
         turns += 1
 
