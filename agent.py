@@ -145,43 +145,6 @@ def ground_stop_status(airport: str, date: str = "") -> Dict[str, Any]:
 
 EXTRA_TOOLS: List[Dict[str, Any]] = [   # ✏️ Build 2, step 2.1: schemas for the tools you add
     {
-        "name": "next_available_day",
-        "description": (
-            "Answer 'When is the first day I can fly?': the earliest date with an open "
-            "seat on a route, searched forward from a start date, from Larkspur's flight "
-            "schedule (flights.csv). Call it for questions about DATES, when the customer "
-            "wants to know how long they are stuck rather than which flight to take; use "
-            "search_alternatives when they want actual flight options to hold. origin, "
-            "dest, date and cabin come from lookup_booking (the disrupted segment), so do "
-            "not ask the customer for them. Returns one YYYY-MM-DD date, or nothing if no "
-            "seat is open within the schedule. It books and holds nothing, and it answers "
-            "for one passenger only."
-        ),
-        "input_schema": {
-            "type": "object",
-            "properties": {
-                "origin": {
-                    "type": "string",
-                    "description": "Departure airport, three-letter IATA code, e.g. DEN.",
-                },
-                "dest": {
-                    "type": "string",
-                    "description": "Arrival airport, three-letter IATA code, e.g. AUS.",
-                },
-                "date": {
-                    "type": "string",
-                    "description": "Date to search forward from, ISO format YYYY-MM-DD, e.g. 2025-05-08 (the booked travel date).",
-                },
-                "cabin": {
-                    "type": "string",
-                    "enum": ["Y", "J"],
-                    "description": "Y for main cabin, J for first. Defaults to Y.",
-                },
-            },
-            "required": ["origin", "dest", "date"],
-        },
-    },
-    {
         "name": "departures_in_window",
         "description": (
             "List every Larkspur flight leaving one airport within a stretch of local time, today "
@@ -228,7 +191,6 @@ EXTRA_TOOLS: List[Dict[str, Any]] = [   # ✏️ Build 2, step 2.1: schemas for 
     },
 ]
 LOCAL_TOOLS: Dict[str, Any] = {          # ✏️ Build 2, step 2.1: the functions behind them
-    "next_available_day": next_available_day,
     "departures_in_window": departures_in_window,
     "ground_stop_status": ground_stop_status,
 }
@@ -296,7 +258,7 @@ def run_agent(pnr: str, last_name: str, message: str) -> str:            # ✏�
 def tool_list() -> List[Dict[str, Any]]:                   # ✏️ Build 2, step 2.2
     """Given. Exactly what Claude is offered on every turn; run.py --show-tools
     prints this list."""
-    return build_tools() + EXTRA_TOOLS
+    return build_tools() + EXTRA_TOOLS + mcp_client.tools()
 
 
 # ──────────────────────────────────────────────────────────────────────────────
